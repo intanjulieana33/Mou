@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Kerjasama</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html, body {
+            height: 100%;
+        }
+        .input-focus:focus {
+            border-color: #3182ce;
+            outline: none;
+        }
+        .clear-button {
+            background-color: #3182ce;
+            transition: background-color 0.3s ease;
+        }
+        .clear-button:hover {
+            background-color: red;
+        }
+        .submit-button {
+            background-color: #3182ce;
+            transition: background-color 0.3s ease;
+        }
+        .submit-button:hover {
+            background-color: #2b6cb0;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex justify-center items-center font-sans">
+    <!-- Container Form -->
+    <div id="formPage" class="w-full h-full bg-white p-9 shadow-md rounded-lg overflow-auto">
+        <form id="formKerjasama" class="max-w-3xl mx-auto">
+            <!--Nomor Dokumen-->
+            <div class="grid grid-cols-3 items-center mb-4">
+                <label class="text-gray-700 pl-2" for="nomor_dokumen">Nomor Dokumen</label>
+                <input type="text" id="nomor_dokumen" class="col-span-2 w-full max-w-md px-3 py-2 border rounded-md input-focus">
+            </div>
+
+            <!--Nama Dokumen-->
+            <div class="grid grid-cols-3 items-center mb-4">
+                <label class="text-gray-700 pl-2" for="nama_dokumen">Nama Dokumen</label>
+                <input type="text" id="nama_dokumen" class="col-span-2 w-full max-w-md px-3 py-2 border rounded-md input-focus">
+            </div>
+
+            <!--Lama Kerjasama-->
+            <div class="grid grid-cols-1 sm:grid-cols-3 items-center mb-4">
+                <label class="text-gray-700 pl-2" for="lama_kerjasama">Lama Kerja Sama</label>
+                <div class="flex flex-col space-y-2 col-span-2">
+                    <div class="flex items-center">
+                        <input type="checkbox" id="5_tahun" name="lama_kerjasama[]" value="5_tahun" class="mr-2">
+                        <label for="5_tahun" class="text-gray-700">5 Tahun</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" id="infinity" name="lama_kerjasama[]" value="infinity" class="mr-2">
+                        <label for="infinity" class="text-gray-700">∞ (Infinity)</label>
+                    </div>
+                </div>
+            </div>
+
+            <!--Jenis Mou-->
+            <div class="grid grid-cols-3 items-center mb-4">
+                <label class="text-gray-700 pl-2" for="jenis_mou">Jenis MOU</label>
+                <select id="jenis_mou" name="jenis_mou" class="col-span-2 w-full max-w-md px-3 py-2 border rounded-md input-focus">
+                    <option value="tridharma">Tridharma</option>
+                    <option value="promosi">Promosi</option>
+                    <option value="sharing_provit">Sharing Provit</option>
+                    <option value="beasiswa">Beasiswa</option>
+                    <option value="pemanfaatan_fasilitas_universitas">Pemanfaatan Fasilitas Universitas</option>
+                    <option value="pemanfaatan_sdm">Pemanfaatan SDM</option>
+                </select>
+            </div>
+
+            <!--Status-->
+            <div class="grid grid-cols-3 items-center mb-4">
+                <label class="text-gray-700 pl-2" for="status">Status</label>
+                <select id="status" name="status" class="col-span-2 w-full max-w-md px-3 py-2 border rounded-md input-focus">
+                    <option value="aktif">Aktif</option>
+                    <option value="tidak_aktif">Tidak Aktif</option>
+                </select>
+            </div>
+
+            <!-- Tombol Submit dan Clear -->
+            <div class="text-right mt-6 space-x-4">
+                <button type="reset" class="clear-button px-4 py-2 rounded-md text-white font-semibold">Clear</button>
+                <button type="submit" class="submit-button px-4 py-2 rounded-md text-white font-semibold">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="resultPage" class="hidden bg-white p-8 shadow-md rounded-lg max-w-xl font-sans">
+        <h1 class="text-2xl font-bold mb-4">Jawaban Anda Sudah Terekam</h1>
+        <div id="output" class="text-gray-700 mb-6"></div>
+        <button id="kembali" class="block text-center mt-6 bg-blue-600 text-white px-4 py-2 rounded-md font-semibold">Kembali ke Form</button>
+    </div>
+
+    <script>
+        const formPage = document.getElementById('formPage');
+        const resultPage = document.getElementById('resultPage');
+        const formKerjasama = document.getElementById('formKerjasama');
+        const output = document.getElementById('output');
+    
+        formKerjasama.addEventListener('submit', function(e) {
+            e.preventDefault();
+    
+            // Ambil data form
+            const nomorDokumen = document.getElementById('nomor_dokumen').value;
+            const namaDokumen = document.getElementById('nama_dokumen').value;
+            const jenisMou = document.getElementById('jenis_mou').value;
+            const status = document.getElementById('status').value;
+
+            const lamaKerjasamaElements = document.querySelectorAll('input[name="lama_kerjasama[]"]:checked');
+            const lamaKerjasama = Array.from(lamaKerjasamaElements).map(el => el.nextElementSibling.textContent);
+
+            const data = {
+                nomorDokumen,
+                namaDokumen,
+                jenisMou,
+                status,
+                lamaKerjasama: lamaKerjasama.join(', '),
+            };
+    
+            // Tampilkan data pada resultPage
+            output.innerHTML = `
+                <p><strong>Nomor Dokumen:</strong> ${data.nomorDokumen}</p>
+                <p><strong>Nama Dokumen:</strong> ${data.namaDokumen}</p>
+                <p><strong>Jenis MOU:</strong> ${data.jenisMou}</p>
+                <p><strong>Status:</strong> ${data.status}</p>
+                <p><strong>Lama Kerja Sama:</strong> ${data.lamaKerjasama}</p>
+            `;
+    
+            formPage.classList.add('hidden');
+            resultPage.classList.remove('hidden');
+        });
+    
+        document.getElementById('kembali').addEventListener('click', function() {
+            resultPage.classList.add('hidden');
+            formPage.classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
