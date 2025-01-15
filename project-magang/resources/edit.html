@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Dokumen MoU</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto py-10">
+        <h1 class="text-2xl font-bold text-gray-800 text-center mb-6">Edit Dokumen MoU</h1>
+        <div class="bg-white shadow-md rounded-lg p-6 max-w-2xl mx-auto">
+            <form action="/update" method="POST" class="space-y-4">
+                <input type="hidden" name="id" value="<!-- ID dokumen -->">
+
+                <!--Nomor Dokumen-->
+                <div>
+                    <label for="title" class="block text-sm font-medium text-gray-700">Nomor Dokumen</label>
+                    <input type="text" id="title" name="title" 
+                           class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300 focus:border-blue-500" 
+                           placeholder="Masukkan judul MoU" required>
+                </div>
+
+                <!--Nama Dokumen-->
+                <div>
+                    <label for="title" class="block text-sm font-medium text-gray-700">Nama Dokumen</label>
+                    <input type="text" id="title" name="title" 
+                           class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300 focus:border-blue-500" 
+                           placeholder="Masukkan judul MoU" required>
+                </div>
+
+                <!--Lama Kerjasama-->
+                <div>
+                    <label for="title" class="block text-sm font-medium text-gray-700">Lama Kerjasama</label>
+                    <input type="text" id="title" name="title" 
+                           class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300 focus:border-blue-500" 
+                           placeholder="Masukkan judul MoU" required>
+                </div>
+
+                <!-- Jenis Mou -->
+            <div class="grid grid-cols-3 items-center mb-4">
+                <label class="text-gray-700 pl-2" for="jenis_mou">Jenis MOU</label>
+                <select id="jenis_mou" name="jenis_mou" class="col-span-2 w-full max-w-md px-3 py-2 border rounded-md input-focus">
+                    <option value="tridharma">Tridharma</option>
+                    <option value="promosi">Promosi</option>
+                    <option value="sharing_provit">Sharing Provit</option>
+                    <option value="beasiswa">Beasiswa</option>
+                    <option value="pemanfaatan_fasilitas_universitas">Pemanfaatan Fasilitas Universitas</option>
+                    <option value="pemanfaatan_sdm">Pemanfaatan SDM</option>
+                </select>
+            </div>
+
+            <!-- Status -->
+                <div>
+                    <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
+                    <select id="status" name="status" 
+                            class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300 focus:border-blue-500" 
+                            required>
+                        <option value="aktif">Aktif</option>
+                        <option value="tidak_aktif">Tidak Aktif</option>
+                    </select>
+                </div>
+
+                <div class="flex justify-end space-x-4">
+                    <button type="submit" 
+                            class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300">
+                        Simpan
+                    </button>
+                    <a href="/" 
+                       class="bg-gray-300 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-400 focus:outline-none focus:ring focus:ring-gray-300">
+                        Batal
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
